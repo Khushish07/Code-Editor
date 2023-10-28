@@ -19,7 +19,7 @@ export default function RoomID() {
         </div>
         <footer>
             <h4>
-        Built with 💖 by <a href='https://github.com/GameOver2811'>Algo Pirates</a>
+        Built with 💖 by <a href='#'>Algo Pirates</a>
             </h4>
         </footer>
     </div>
