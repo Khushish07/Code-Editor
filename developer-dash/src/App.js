@@ -2,21 +2,36 @@ import logo from './logo.svg';
 import './App.css';
 import { BrowserRouter,Route,Routes } from 'react-router-dom';
 import EditorPage from './Components/EditorPage';
+import { Toaster } from 'react-hot-toast';
 import RoomID from './Components/RoomID';
 
 function App() {
   return (
-    
-      <BrowserRouter>
+      <>
+        <div>
+          <Toaster
+              position="top-right"
+              toastOptions={{
+                  success: {
+                      theme: {
+                          primary: '#4aed88',
+                      },
+                  },
+              }}
+            ></Toaster>
+        </div>
+        
+          <BrowserRouter>
 
-        <Routes>
+            <Routes>
 
-            <Route path='/' element={<RoomID/>}></Route>
-            <Route path='/editor/:roomId' element={<EditorPage/>}></Route>
+                <Route path='/' element={<RoomID/>}></Route>
+                <Route path='/editor/:roomId' element={<EditorPage/>}></Route>
 
-        </Routes>
+            </Routes>
 
-      </BrowserRouter>
+          </BrowserRouter>
+      </>
     
   );
 }
