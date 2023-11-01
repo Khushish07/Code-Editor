@@ -4,13 +4,20 @@ import Editor from './Editor';
 import { initSocket } from '../socket';
 import ACTIONS from '../Actions';
 import toast from 'react-hot-toast';
-import { useLocation, useNavigate } from 'react-router-dom';
+import {
+  useLocation,
+  useNavigate,
+  Navigate,
+  useParams,
+} from 'react-router-dom';
+
 
 
 export default function EditorPage() {
 
   const socketRef = useRef(null);
   const location = useLocation();
+  const { roomId } = useParams();
   const reactNavigator = useNavigate();
 
   useEffect(()=>{
@@ -27,19 +34,32 @@ export default function EditorPage() {
         }
 
           socketRef.current.emit(ACTIONS.JOIN,{
-            // roomId, it is needed
+            roomId,
             username:location.state?.username,
           });
-      }
+
+          socketRef.current.on(ACTIONS.JOINED, ({clients,username,socketId})=>{
+                if(username !== location.state.username){
+                  toast.success(`${username} joined the room`);
+                  console.log(`${username} joined`);
+                }
+                setClients(clients);
+          });
+
+      };
       init();
   },[]);
 
   const [clients,setClients] = useState([
-    {socketId : 1, username : "Krishna"},
-    {socketId : 2, username : "Khushi"},
-    {socketId : 3, username : "Akshat"},
-    {socketId : 5, username : "Divyanshi"}
+    // {socketId : 1, username : "Krishna"},
+    // {socketId : 2, username : "Khushi"},
+    // {socketId : 3, username : "Akshat"},
+    // {socketId : 5, username : "Divyanshi"}
   ]);
+
+  // if(!location.state){
+  //   <Navigate to={/}/>
+  // }
 
   return (
     <div className='mainWrap'>
